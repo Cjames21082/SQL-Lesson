@@ -7,20 +7,20 @@ def parser(query):
     index = 0
 
     while index < len(query):
-        if query[index] == "\'":
+        if query[index] == chr(39):
             start = index + 1
 
             j = start
             print "start:", j
-            while query[j] != "\'" and j < len(query):
-                print " I am j in the quote loop:", j
+            while query[j] != chr(39) and j < len(query):
+                print " I am j1 in the quote loop:", j
                 j+=1
                 
 
             tokens.append(query[start:j])
             print tokens
 
-            index = j + 1
+            index = j +1
 
         elif query[index] == " ":
             start = index + 1
@@ -34,11 +34,11 @@ def parser(query):
             tokens.append(query[start:j])
             print tokens
 
-            index = j + 1
+            index = j
             print index
 
-        index += 1
-        print "index outside of while loop:", index
+        #index += 1
+        #print "index outside of while loop:", index
 
         
     

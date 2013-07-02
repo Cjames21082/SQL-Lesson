@@ -26,11 +26,11 @@ def make_new_student(first_name, last_name, github):
     CONN.commit()
     print "Successfully added student: %s %s" % (first_name, last_name)
 
-def make_new_project(title,description, max_grade):
-    query= """INSERT into Projects values (?,?,?)"""
-    DB.execute(query, (title, description, max_grade))
-    CONN.commit()
-    print "Successfully added project: %s" %(title)
+# def make_new_project(title,description, max_grade):
+#     query= """INSERT into Projects values (?,?,?)"""
+#     DB.execute(query, (title, description, max_grade))
+#     CONN.commit()
+#     print "Successfully added project: %s" %(title)
 
 def project_by_title(project_title):
     query = """SELECT title, description, max_grade FROM Projects WHERE title = ?"""
@@ -40,37 +40,6 @@ def project_by_title(project_title):
 Title: %s
 Description: %s
 Max Grade: %d"""%(row[0], row[1], row[2])
-
-def parser(query):
-    tokens = []
-
-    index = 0
-while index < len(query):
-    if query[index] = "\'":
-        start = index + 1
-
-        j = start
-        while query[j] != "\'":
-            j+=1
-
-        tokens.append(query[start:j])
-
-        index = j + 1
-
-    elif query[index] = " ":
-        start = index + 1
-
-        j = start
-        while query[j] != " ":
-            j += 1
-
-        tokens.append(start:j)
-
-        index = j + 1
-
-
-
-
 
 def connect_to_db():
     global DB, CONN
@@ -92,8 +61,8 @@ def main():
             make_new_student(*args)
         elif command == "project":
             project_by_title(*args)
-        elif command == "new_project":
-            make_new_project()
+        # elif command == "new_project":
+        #     make_new_project()
         elif command == "grade":
             grade_by_project(*args)
 
