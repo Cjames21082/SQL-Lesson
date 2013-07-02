@@ -21,3 +21,7 @@ Afterwards, we will (hopefully) work on
 
     * Giving a grade to a student, and
     * Showing all the grades for a student.
+
+--
+Katherine Fellows
+Cassandra Dixon
