@@ -23,5 +23,4 @@ Afterwards, we will (hopefully) work on
     * Showing all the grades for a student.
 
 --
-Katherine Fellows
-Cassandra Dixon
+Katherine Fellows & Cassandra Dixon
