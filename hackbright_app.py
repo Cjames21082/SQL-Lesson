@@ -11,6 +11,67 @@ def get_student_by_github(github):
 Student: %s %s
 Github account: %s"""%(row[0], row[1], row[2])
 
+def grade_by_project(first_name, last_name, project_title):
+    query = """SELECT grade, project_title FROM Students INNER JOIN Grades ON github = student_github 
+        WHERE first_name = ? AND last_name = ? AND project_title = ?"""
+    DB.execute(query, (first_name, last_name, project_title))
+    row = DB.fetchone()
+    print """\
+    Title: %s
+    Grade: %s""" % (row[1], row[0])
+
+def make_new_student(first_name, last_name, github):
+    query = """INSERT into Students values (?, ?, ?)"""
+    DB.execute(query, (first_name, last_name, github))
+    CONN.commit()
+    print "Successfully added student: %s %s" % (first_name, last_name)
+
+def make_new_project(title,description, max_grade):
+    query= """INSERT into Projects values (?,?,?)"""
+    DB.execute(query, (title, description, max_grade))
+    CONN.commit()
+    print "Successfully added project: %s" %(title)
+
+def project_by_title(project_title):
+    query = """SELECT title, description, max_grade FROM Projects WHERE title = ?"""
+    DB.execute(query, (project_title,))
+    row = DB.fetchone()
+    print """\
+Title: %s
+Description: %s
+Max Grade: %d"""%(row[0], row[1], row[2])
+
+def parser(query):
+    tokens = []
+
+    index = 0
+while index < len(query):
+    if query[index] = "\'":
+        start = index + 1
+
+        j = start
+        while query[j] != "\'":
+            j+=1
+
+        tokens.append(query[start:j])
+
+        index = j + 1
+
+    elif query[index] = " ":
+        start = index + 1
+
+        j = start
+        while query[j] != " ":
+            j += 1
+
+        tokens.append(start:j)
+
+        index = j + 1
+
+
+
+
+
 def connect_to_db():
     global DB, CONN
     CONN = sqlite3.connect("hackbright.db")
@@ -29,6 +90,12 @@ def main():
             get_student_by_github(*args) 
         elif command == "new_student":
             make_new_student(*args)
+        elif command == "project":
+            project_by_title(*args)
+        elif command == "new_project":
+            make_new_project()
+        elif command == "grade":
+            grade_by_project(*args)
 
     CONN.close()
 
