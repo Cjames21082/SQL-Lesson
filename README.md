@@ -8,19 +8,16 @@ Currently, the program hackbright_app.py performs the standard tasks listed at h
 The program hackbright_app.py will also:
 
 * Add a student,
-* Query for projects by title, and
-* Query for a student's grade given a project.
+* Query for projects by title,
+* Query for a student's grade given a project,
+* Give a grade to a student, and
+* Show all the grades for a student.
 
 We are currently attempting to
 
 * Add a project.
 
 The problem? Adding multi-word project titles and/or multi-word project descriptions. The file parser.py is our current progress on this task.
-
-Afterwards, we will (hopefully) work on
-
-* Giving a grade to a student, and
-* Showing all the grades for a student.
 
 --
 Katherine Fellows & Cassandra Dixon

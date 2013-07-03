@@ -3,6 +3,24 @@ import sqlite3
 DB = None
 CONN = None
 
+def assign_grade_to_student(first_name, last_name, project_title, grade):
+    query1 = """SELECT github FROM Students WHERE first_name = ? AND last_name = ?"""
+    DB.execute(query1, (first_name, last_name))
+    row = DB.fetchone()
+
+    if row == None:
+        print "Name does not exist."
+    else:
+        query2 = """INSERT into Grades values (?, ?, ?)"""
+        DB.execute(query2,(row[0], project_title, grade))
+        CONN.commit()
+
+        print """\
+Student: %s %s 
+Github: %s
+Project: %s
+Grade: %s"""%(first_name, last_name, row[0], project_title, grade)
+
 def get_student_by_github(github):
     query = """SELECT first_name, last_name, github FROM Students WHERE github = ?"""
     DB.execute(query, (github,))
@@ -26,11 +44,12 @@ def make_new_student(first_name, last_name, github):
     CONN.commit()
     print "Successfully added student: %s %s" % (first_name, last_name)
 
-# def make_new_project(title,description, max_grade):
-#     query= """INSERT into Projects values (?,?,?)"""
-#     DB.execute(query, (title, description, max_grade))
-#     CONN.commit()
-#     print "Successfully added project: %s" %(title)
+def make_new_project(title,description, max_grade):
+    # DOES NOT WORK
+    query= """INSERT into Projects values (?,?,?)"""
+    DB.execute(query, (title, description, max_grade))
+    CONN.commit()
+    print "Successfully added project: %s" %(title)
 
 def project_by_title(project_title):
     query = """SELECT title, description, max_grade FROM Projects WHERE title = ?"""
@@ -40,6 +59,16 @@ def project_by_title(project_title):
 Title: %s
 Description: %s
 Max Grade: %d"""%(row[0], row[1], row[2])
+
+def show_grades(first_name, last_name):
+    query = """SELECT project_title, grade FROM Grades INNER JOIN Students ON (github = student_github) WHERE first_name = ? and last_name = ? """
+    DB.execute(query, (first_name,last_name))
+    rows = DB.fetchall()
+    print "Student: %s %s" %(first_name, last_name)
+
+    print "Projects and Grades:"
+    for i in range(len(rows)):
+        print " %s, %s" %(rows[i][0], rows[i][1])
 
 def connect_to_db():
     global DB, CONN
@@ -51,7 +80,7 @@ def main():
     command = None
     while command != "quit":
         input_string = raw_input("HBA Database> ")
-        tokens = input_string.split()
+        tokens = input_string.split(",")
         command = tokens[0]
         args = tokens[1:]
 
@@ -65,6 +94,10 @@ def main():
         #     make_new_project()
         elif command == "grade":
             grade_by_project(*args)
+        elif command == "assign_grade":
+            assign_grade_to_student(*args)
+        elif command == "show_grades":
+            show_grades(*args)
 
     CONN.close()
 
