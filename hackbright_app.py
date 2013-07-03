@@ -3,7 +3,7 @@ import sqlite3
 DB = None
 CONN = None
 
-#########################Grades######################
+######################### Grades ######################
 
 # Enter new grade
 def assign_grade_to_student(first_name, last_name, project_title, grade):
@@ -51,7 +51,8 @@ def grade_by_project(first_name, last_name, project_title):
     print """\
     Title: %s
     Grade: %s""" % (row[1], row[0])
-###################################Projects################################
+
+################################### Projects ################################
 
 # Enter new project
 def make_new_project(title,description, max_grade):
@@ -72,7 +73,7 @@ Description: %s
 Max Grade: %d"""%(row[0], row[1], row[2])
 
 
-##########################Student#############################################
+########################## Student #############################################
 
 #Enter new student
 def make_new_student(first_name, last_name, github):
