@@ -19,5 +19,7 @@ We are currently attempting to
 
 The problem? Adding multi-word project titles and/or multi-word project descriptions. The file parser.py is our current progress on this task.
 
+**NOTE: The program now parses tokens at commas rather than spaces. Insert commands accordingly.**
+
 --
 Katherine Fellows & Cassandra Dixon
